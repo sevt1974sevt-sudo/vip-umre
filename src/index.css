@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .dir-rtl {
+    direction: rtl;
+  }
+  .dir-ltr {
+    direction: ltr;
+  }
+}
+
+.font-serif {
+  font-family: "Amiri", "Cinzel", Georgia, serif;
+}
+
+.font-arabic {
+  font-family: "Amiri", serif;
+}
+
+@media print {
+  header, footer, nav, button, .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "VIP Umre Rehberi ve Rota Danışmanı",
+  "description": "6 kişilik butik gruplar için 10 günlük VIP Umre rotası, kişi başı 60.000 TL optimize fiyatlandırma stratejisi, klasik Arapça siyer kaynakları ve canlı yapay zeka danışmanı.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
