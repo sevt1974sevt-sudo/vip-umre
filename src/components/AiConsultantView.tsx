@@ -124,31 +124,64 @@ Aşağıdaki başlıklardan dilediğinizi seçebilir, ziyaret etmek istediğiniz
   React.useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
+// Handle local image upload
+const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
 
-  // Handle local image upload
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  if (!file.type.startsWith("image/")) {
+    setErrorText("Lütfen geçerli bir resim dosyası seçiniz (JPEG, PNG, WebP).");
+    return;
+  }
 
-    if (!file.type.startsWith("image/")) {
-      setErrorText("Lütfen geçerli bir resim dosyası seçiniz (JPEG, PNG, WebP).");
-      return;
-    }
+  const reader = new FileReader();
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      const base64Data = result.split(",")[1];
+  reader.onload = () => {
+    const result = reader.result as string;
+    const img = new Image();
+
+    img.onload = () => {
+      const MAX_WIDTH = 1280;
+      const scale = Math.min(1, MAX_WIDTH / img.width);
+
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+
+      const ctx = canvas.getContext("2d");
+
+      if (!ctx) {
+        setErrorText("Görsel hazırlanamadı. Lütfen tekrar deneyiniz.");
+        return;
+      }
+
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.75);
+      const base64Data = compressedDataUrl.split(",")[1];
+
       setSelectedImage({
         data: base64Data,
-        mimeType: file.type,
-        previewUrl: result,
+        mimeType: "image/jpeg",
+        previewUrl: compressedDataUrl,
       });
+
       setErrorText(null);
     };
-    reader.readAsDataURL(file);
+
+    img.onerror = () => {
+      setErrorText("Görsel okunamadı. Lütfen başka bir fotoğraf deneyiniz.");
+    };
+
+    img.src = result;
   };
 
+  reader.onerror = () => {
+    setErrorText("Görsel yüklenemedi. Lütfen tekrar deneyiniz.");
+  };
+
+  reader.readAsDataURL(file);
+};
   // Select pre-curated sample image
   const handleSelectSampleImage = (sample: typeof SAMPLE_SACRED_IMAGES[0]) => {
     // Extract base64 or keep data
