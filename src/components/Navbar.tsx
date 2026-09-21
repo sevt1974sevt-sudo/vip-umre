@@ -1,6 +1,5 @@
 import React from "react";
-import { Compass, Sparkles, Car, Users, MessageSquareText, Shield, CalendarDays } from "lucide-react";
-
+import { Compass, Sparkles, Car, Users, MessageSquareText, Shield, CalendarDays, MessageCircle } from "lucide-react";
 export type NavTabType = "pricing" | "itinerary" | "consultant" | "standards";
 
 interface NavbarProps {
@@ -101,6 +100,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
               <span className="hidden sm:inline">Danışmana Danış</span>
               <span className="sm:hidden">Danışman</span>
             </button>
+<a
+              href="https://wa.me/905510409654"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-sm transition-all"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">WhatsApp'tan Danış</span>
+              <span className="sm:hidden">WhatsApp</span>
+            </a>
           </div>
         </div>
 
