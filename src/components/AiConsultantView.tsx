@@ -505,7 +505,8 @@ const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
               className="p-2.5 rounded-xl border border-stone-300 hover:border-emerald-600 text-stone-600 hover:text-emerald-800 hover:bg-stone-50 transition-colors"
               title="Mekan / Kitabe Fotoğrafı Yükle"
             >
-              <UploadCloud className="w-5 h-5" />
+             <UploadCloud className="w-5 h-5" />
+<span>Resim yükle</span>
             </button>
 
             <input
